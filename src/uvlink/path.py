@@ -33,3 +33,17 @@ def get_uvlink_dir(*subpaths: str | Path) -> Path:
     for sp in subpaths:
         root /= Path(sp)
     return root
+
+
+def get_project_name(path: str | Path | None = None) -> str:
+    """Return the final directory name for the given project path.
+
+    Args:
+        path: Optional filesystem path to inspect. Defaults to the current
+            working directory when omitted.
+
+    Returns:
+        str: Basename of the provided or current project path.
+    """
+    p = Path(path or Path.cwd()).expanduser()
+    return p.name
