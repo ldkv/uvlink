@@ -79,7 +79,7 @@ def link(
             if venv.exists() or venv.is_symlink():
                 if typer.confirm(f"'{venv}' already exist, remove?", default=True):
                     typer.echo("Removing...")
-                    rm_rf(venv)
+                    rm_rf(venv.parent)
                 else:
                     typer.echo(f"Keep current {venv}")
             if symlink.exists() or symlink.is_symlink():
