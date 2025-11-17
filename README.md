@@ -2,6 +2,8 @@
 
 Keep project folders light by storing Python virtual environments in a single cache and linking them back into each repo. uvlink is handy when your projects live inside cloud-synced drives and you do not want `.venv` directories eating up bandwidth.
 
+- [Changelog](CHANGELOG.md)
+
 
 ## Requirements
 

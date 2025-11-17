@@ -1,0 +1,16 @@
+# Changelog
+
+Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
+
+## 0.3.0
+
+### Added
+- `uvlink gc` command to clean up orphaned cache entries.
+- `uvlink ls` command to list the linking status of venvs.
+
+## 0.2.0
+
+### Added
+- Initial public release of `uvlink`
+- `link` command to create the cache of venv in the `~/.local/share/uvlink/cache/...` directory and create symlinks `.venv` in the original project dir pointing to the cached venv.
+- Documentation covering installation via `uv tool` and `pip`, along with guidance for typical usage patterns.
