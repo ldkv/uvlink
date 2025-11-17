@@ -47,3 +47,32 @@ def get_project_name(path: str | Path | None = None) -> str:
     """
     p = Path(path or Path.cwd()).expanduser()
     return p.name
+
+
+def get_project_cache_dir(
+    path: str | Path | None = None, venv_type: str = "venv"
+) -> Path:
+    """Return the cache directory path for the project's virtual environment.
+
+    Args:
+        path: Optional project directory; defaults to the current working
+            directory when omitted.
+        venv_type: Identifier for the virtual environment flavor. Only
+            "venv" is currently supported.
+
+    Returns:
+        Path: Location under the uvlink cache tree scoped by project name and
+            hashed path.
+
+    Raises:
+        NotImplementedError: If an unsupported ``venv_type`` is provided.
+    """
+    project_dir = Path(path or Path.cwd())
+    project_name = get_project_name(project_dir)
+    project_hash = hash_path(project_dir)
+    # TODO: use Enum for venv_type
+    if venv_type == "venv":
+        cache_dir = get_uvlink_dir("cache", "venv") / f"{project_name}-{project_hash}"
+    else:
+        raise NotImplementedError(f"venv_type = {venv_type} not supported (yet)")
+    return cache_dir
