@@ -1,3 +1,4 @@
+from datetime import datetime
 import hashlib
 import json
 import os
@@ -100,3 +101,22 @@ class Project:
         abs_path = Path(path).expanduser().resolve().as_posix()
         abs_path_hash = hashlib.sha256(abs_path.encode("utf-8")).hexdigest()
         return abs_path_hash[:length]
+
+    def save_json_metadata_file(self) -> Path:
+        """Persist project metadata to ``project.json`` inside the cache dir.
+
+        Returns:
+            Path: Location of the written metadata file.
+        """
+
+        metadata = {
+            "project_dir": self.project_dir.as_posix(),
+            "project_name": self.project_name,
+            "project_hash": self.project_hash,
+            "venv_type": self.venv_type,
+            "created_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        }
+        metadata_path = self.project_cache_dir / "project.json"
+        metadata_path.parent.mkdir(parents=True, exist_ok=True)
+        metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
+        return metadata_path
