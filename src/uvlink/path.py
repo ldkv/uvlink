@@ -1,5 +1,6 @@
 from pathlib import Path
 import hashlib
+import os
 
 
 def hash_path(path: str | Path, length: int = 12) -> str:
@@ -16,3 +17,19 @@ def hash_path(path: str | Path, length: int = 12) -> str:
     abs_path = Path(path).resolve().as_posix()
     abs_path_hash = hashlib.sha256(abs_path.encode("utf-8")).hexdigest()
     return abs_path_hash[:length]
+
+
+def get_uvlink_dir(*subpaths: str | Path) -> Path:
+    """Return the uvlink data directory, optionally nested under subpaths.
+
+    Args:
+        *subpaths: Optional relative paths appended under the uvlink data root.
+
+    Returns:
+        Path: Absolute path to the uvlink data directory or provided subpath.
+    """
+    base = Path(os.environ.get("XDG_DATA_HOME", "~/.local/share")).expanduser()
+    root = base / "uvlink"
+    for sp in subpaths:
+        root /= Path(sp)
+    return root
