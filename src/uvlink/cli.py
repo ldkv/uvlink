@@ -20,8 +20,8 @@ console = Console()
 @app.callback()
 def main(
     ctx: typer.Context,
-    project_dir: Path | None = typer.Option(
-        Path.cwd(),
+    project_dir: Path | None = typer.Option(  # noqa: B008
+        Path.cwd(),  # noqa: B008
         "--project-dir",
         "-p",
         show_default=True,

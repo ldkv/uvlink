@@ -151,7 +151,10 @@ class Projects(list[Project]):
     """Iterable helper that discovers cached projects and their link status."""
 
     # TODO: do not hard coded "venv" here
-    def __init__(self, base_path: str | Path = get_uvlink_dir("cache", "venv")):
+    def __init__(
+        self,
+        base_path: str | Path = get_uvlink_dir("cache", "venv"),  # noqa: B008
+    ):
         """Load every ``project.json`` nested directly under ``base_path``.
 
         Args:

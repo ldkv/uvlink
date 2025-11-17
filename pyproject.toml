@@ -7,6 +7,9 @@ name = "uvlink"
 version = "0.3.0"
 description = "CLI helper for keeping Python venvs outside synced project folders"
 readme = "README.md"
+authors = [
+  { name = "Cory Chu", email = "cory@gwlab.page" },
+]
 requires-python = ">=3.12"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
@@ -32,7 +35,7 @@ dev = [
 ]
 
 [tool.ruff]
-select = [ "E", "F", "I", "B", "UP" ]
+lint.select = [ "B", "E", "F", "I", "UP" ]
 
 [tool.pyright]
 typeCheckingMode = "strict"
