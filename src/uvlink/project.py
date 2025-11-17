@@ -150,6 +150,7 @@ class ProjectLinkInfo:
 class Projects(list[Project]):
     """Iterable helper that discovers cached projects and their link status."""
 
+    # TODO: do not hard coded "venv" here
     def __init__(self, base_path: str | Path = get_uvlink_dir("cache", "venv")):
         """Load every ``project.json`` nested directly under ``base_path``.
 
@@ -171,7 +172,7 @@ class Projects(list[Project]):
 
         linked: list[ProjectLinkInfo] = []
         for p in self:
-            symlink = p.project_dir / ".venv"
+            symlink = p.project_dir / ".venv"  # TODO: do not hard code ".venv" here
             is_linked = (
                 symlink.is_symlink() and symlink.resolve().parent == p.project_cache_dir
             )
