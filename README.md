@@ -39,14 +39,16 @@ $ pip install uvlink
 
 ## Quick Start
 
-Navigate to any Python project and run:
+Navigate to any Python project (which may be created by `uv init` for instance) and run:
 
 ```bash
 $ cd /path/to/your/project
 $ uvlink link
 ```
 
-This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/<project-name>-<hash>/`. Now your cloud service ignores the heavy virtual environment files.
+This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/<project-name>-<hash>/.venv`. Now your cloud service ignores the heavy virtual environment files.
+
+After linking, you can do for example `uv sync` to install dependencies into `.venv`, which is now a symlink to the cached environment.
 
 **List all linked projects:**
 
