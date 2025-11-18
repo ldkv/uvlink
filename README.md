@@ -1,17 +1,23 @@
 # uvlink
+[![PyPI - Version](https://img.shields.io/pypi/v/uvlink)](https://pypi.org/project/uvlink/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/uvlink)](https://pypi.org/project/uvlink/)
 
-Keep project folders light by storing Python virtual environments in a single cache and linking them back into each repo. uvlink is handy when your projects live inside cloud-synced drives and you do not want `.venv` directories eating up bandwidth.
+`uvlink` is a CLI tool that moves `.venv` folders into a local cache and creates a symlink in your project, so cloud services like Dropbox or iCloud only sync your actual code—not hundreds of megabytes of dependencies.
 
 - [Changelog](CHANGELOG.md)
+
+> [!CAUTION]
+> Since `v0.4.0`, the cache directory changed from `~/.local/share/uvlink/cache/venv/<project-name>-<hash>/venv` to `~/.local/share/uvlink/cache/<project-name>-<hash>/<venv_type>`. It is recommended to delete existing cached environments created with prior versions and rerun `uvlink link` to recreate them in the new structure.
 
 
 ## Requirements
 
 - Python 3.12+
-- macOS or Linux shell with symlink support
+- macOS or Linux with symlink support
 
 > [!WARNING]
 > uvlink is currently only tested on Apple Silicon (M-series) machines running macOS Tahoe. Other operating systems or architectures have not been validated yet.
+
 
 
 ## Install
@@ -31,27 +37,52 @@ $ pip install uvlink
 ```
 
 
-## Usage
+## Quick Start
 
-`uvlink` ships with a [Typer](https://typer.tiangolo.com/) CLI. Run `uvlink --help` (or `python -m uvlink.cli --help`) to view every option. 
-
-Common commands:
+Navigate to any Python project and run:
 
 ```bash
+$ cd /path/to/your/project
 $ uvlink link
 ```
-This assumes your current working directory is a Python project folder.
 
-Use
-``` bash
+This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/<project-name>-<hash>/`. Now your cloud service ignores the heavy virtual environment files.
+
+**List all linked projects:**
+
+```bash
+$ uvlink ls
+```
+
+Shows all projects having cached environments and whether their symlinks are still linked.
+
+**Clean up unlinked caches:**
+
+```bash
+$ uvlink gc
+```
+
+Removes cached environments for projects that no longer have working symlinks, freeing up disk space.
+
+
+
+## Advanced Usage
+
+`uvlink` ships with a [Typer](https://typer.tiangolo.com/) CLI. Run `uvlink --help` for all options.
+
+**Specify a project directory:**
+
+```bash
 $ uvlink --project-dir /path/to/project link
 ```
-if you want to operate on a directory other than the current one.
+
+Works from any location without needing to `cd` into the project directory first.
+
 
 
 ## Notes
+uvlink stores environments under `~/.local/share/uvlink/cache/<project-name>-<hash>/.venv` and makes a symlink `./.venv` back into that. Each project receives a stable hash based on its absolute path, so repeated runs target the same cache location.
 
-uvlink stores environments under `~/.local/share/uvlink/cache/<venv-type>/<project-name>-<hash>/venv` and makes a symlink `./.venv` back into that. Each project receives a stable hash based on its absolute path, so repeated runs target the same cache location.
 
 
 ## Contributing

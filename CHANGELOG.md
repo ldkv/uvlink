@@ -2,6 +2,12 @@
 
 Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## 0.4.0
+
+### Changed
+- **Breaking:** Restructured cache directory from `~/.local/share/uvlink/cache/venv/<project>-<hash>/venv` to `~/.local/share/uvlink/cache/<project>-<hash>/.venv`. Existing caches created with prior versions should be deleted and recreated.
+- Simplified symlink creation—removed unnecessary hidden-folder logic.
+
 ## 0.3.0
 
 ### Added

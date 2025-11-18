@@ -48,7 +48,7 @@ def link(
         False, "--dry-run", help="Show what would be executed without actually run it."
     ),
 ) -> None:
-    """Create (or update) the hidden project symlink pointing at the cached venv."""
+    """Create (or update) the symlink in project pointing to the cached venv."""
     proj = ctx.obj["proj"]
     dry_run = dry_run or ctx.obj["dry_run"]
     if dry_run:
@@ -58,23 +58,11 @@ def link(
         typer.Exit()
 
     else:
-        if proj.venv_type in {"venv"}:
-            hidden = True
-        else:
-            hidden = False
-            raise NotImplementedError(
-                f"venv_type = {proj.venv_type} not supported (yet)"
-            )
-
         if not proj.project_dir.is_dir():
             raise NotADirectoryError(f"{proj.project_dir} is not a directory")
         else:
-            if hidden:
-                symlink = proj.project_dir / f".{proj.venv_type}"
-                venv = proj.project_cache_dir / f"{proj.venv_type}"
-            else:
-                symlink = proj.project_dir / f"{proj.venv_type}"
-                venv = proj.project_cache_dir / f"{proj.venv_type}"
+            symlink = proj.project_dir / f"{proj.venv_type}"
+            venv = proj.project_cache_dir / f"{proj.venv_type}"
             if venv.exists() or venv.is_symlink():
                 if typer.confirm(f"'{venv}' already exist, remove?", default=True):
                     typer.echo("Removing...")
@@ -114,7 +102,7 @@ def list_venvs(ctx: typer.Context) -> None:
             "✅" if row.is_linked else "❌",
         )
     typer.secho(
-        f"\n  Cache Location: {get_uvlink_dir('cache', 'venv')} / <Cache-ID>\n",
+        f"\n  Cache Location: {get_uvlink_dir('cache')} / <Cache-ID>\n",
         fg="green",
     )
     console.print(table)

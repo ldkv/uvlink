@@ -55,13 +55,13 @@ class Project:
         "venv_type",
     )
 
-    def __init__(self, project_dir: str | Path | None = None, venv_type: str = "venv"):
+    def __init__(self, project_dir: str | Path | None = None, venv_type: str = ".venv"):
         """Initialize project metadata from the filesystem.
 
         Args:
             project_dir: Path to the project root; defaults to the current
                 working directory.
-            venv_type: Virtual environment strategy. Only ``"venv"`` is
+            venv_type: Virtual environment strategy. Only ``".venv"`` is
                 supported at the moment.
 
         Raises:
@@ -71,13 +71,12 @@ class Project:
         self.project_dir = Path(project_dir or Path.cwd()).expanduser().resolve()
         self.project_hash = self.hash_path(self.project_dir)
         self.project_name = self.project_dir.name
-        if venv_type in {"venv"}:
+        if venv_type in {".venv"}:
             self.venv_type = venv_type
         else:
             raise NotImplementedError(f"venv_type = {venv_type} not supported (yet)")
         self.project_cache_dir = (
-            get_uvlink_dir("cache", self.venv_type)
-            / f"{self.project_name}-{self.project_hash}"
+            get_uvlink_dir("cache") / f"{self.project_name}-{self.project_hash}"
         )
 
     @classmethod
@@ -153,7 +152,7 @@ class Projects(list[Project]):
     # TODO: do not hard coded "venv" here
     def __init__(
         self,
-        base_path: str | Path = get_uvlink_dir("cache", "venv"),  # noqa: B008
+        base_path: str | Path = get_uvlink_dir("cache"),  # noqa: B008
     ):
         """Load every ``project.json`` nested directly under ``base_path``.
 
