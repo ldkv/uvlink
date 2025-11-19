@@ -7,7 +7,7 @@
 - [Changelog](CHANGELOG.md)
 
 > [!CAUTION]
-> Since `v0.4.0`, the cache directory changed from `~/.local/share/uvlink/cache/venv/<project-name>-<hash>/venv` to `~/.local/share/uvlink/cache/<project-name>-<hash>/<venv_type>`. It is recommended to delete existing cached environments created with prior versions and rerun `uvlink link` to recreate them in the new structure.
+> Since `v0.6.0`, the cache directory includes the venv type in its folder name and stores the environment under a matching subdirectory (e.g. `~/.local/share/uvlink/cache/<project-name>-<hash>-.venv/.venv`). Delete caches created with older versions and rerun `uvlink link` to migrate.
 
 
 ## Requirements
@@ -46,7 +46,7 @@ $ cd /path/to/your/project
 $ uvlink link
 ```
 
-This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/<project-name>-<hash>/.venv`. Now your cloud service ignores the heavy virtual environment files.
+This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/<project-name>-<hash>-.venv/.venv`. Now your cloud service ignores the heavy virtual environment files.
 
 After linking, you can do for example `uv sync` to install dependencies into `.venv`, which is now a symlink to the cached environment.
 
@@ -85,7 +85,7 @@ Works from any location without needing to `cd` into the project directory first
 
 
 ## Notes
-uvlink stores environments under `~/.local/share/uvlink/cache/<project-name>-<hash>/.venv` and makes a symlink `./.venv` back into that. Each project receives a stable hash based on its absolute path, so repeated runs target the same cache location.
+uvlink stores environments under `~/.local/share/uvlink/cache/<project-name>-<hash>-<venv_type>/<venv_type>` and makes a symlink `./.venv` back into that. Each project receives a stable hash based on its absolute path, so repeated runs target the same cache location.
 
 
 

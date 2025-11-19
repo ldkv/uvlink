@@ -78,7 +78,8 @@ class Project:
         else:
             raise NotImplementedError(f"venv_type = {venv_type} not supported (yet)")
         self.project_cache_dir = (
-            get_uvlink_dir("cache") / f"{self.project_name}-{self.project_hash}"
+            get_uvlink_dir("cache")
+            / f"{self.project_name}-{self.project_hash}-{self.venv_type}"
         )
 
     @classmethod
@@ -146,13 +147,13 @@ class ProjectLinkInfo:
     project: Project
     project_name_hash: str
     project_dir_str: str
+    venv_type: str
     is_linked: bool
 
 
 class Projects(list[Project]):
     """Iterable helper that discovers cached projects and their link status."""
 
-    # TODO: do not hard coded "venv" here
     def __init__(
         self,
         base_path: str | Path = get_uvlink_dir("cache"),  # noqa: B008
@@ -177,15 +178,16 @@ class Projects(list[Project]):
 
         linked: list[ProjectLinkInfo] = []
         for p in self:
-            symlink = p.project_dir / ".venv"  # TODO: do not hard code ".venv" here
+            symlink = p.project_dir / p.venv_type
             is_linked = (
                 symlink.is_symlink() and symlink.resolve().parent == p.project_cache_dir
             )
             linked.append(
                 ProjectLinkInfo(
                     project=p,
-                    project_name_hash=f"{p.project_name}-{p.project_hash}",
+                    project_name_hash=f"{p.project_name}-{p.project_hash}-{p.venv_type}",
                     project_dir_str=p.project_dir.as_posix(),
+                    venv_type=p.venv_type,
                     is_linked=is_linked,
                 )
             )

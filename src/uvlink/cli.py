@@ -72,7 +72,7 @@ def link(
     proj = ctx.obj["proj"]
     dry_run = dry_run or ctx.obj["dry_run"]
     if dry_run:
-        symlink = proj.project_dir / f".{proj.venv_type}"
+        symlink = proj.project_dir / f"{proj.venv_type}"
         venv = proj.project_cache_dir / f"{proj.venv_type}"
         typer.echo(f"ln -s {venv} {symlink}")
         typer.Exit()

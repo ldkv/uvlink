@@ -2,6 +2,12 @@
 
 Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## 0.6.0
+
+### Changed
+- **Breaking:** Cache directories now include the virtualenv type in the folder name (for example `myapp-dr3ag8a41ro9-.venv/.venv`), allowing multiple venv types per project to be supported in the future without collisions. Remove old caches and rerun `uvlink link` to migrate.
+- `uvlink ls` now displays the cache identifier with the environment type suffix, making it easier to see which cache belongs to which env flavor.
+
 ## 0.5.0
 
 ### Added
