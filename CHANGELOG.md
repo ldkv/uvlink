@@ -2,6 +2,14 @@
 
 Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## 0.5.0
+
+### Added
+- Each cached project's `project.json` now records the uvlink version that created it, making it easier to audit caches after upgrades.
+
+### Changed
+- `uvlink ls` renders with a minimal table style so the listing is easier to read in plain terminals.
+
 ## 0.4.1
 
 ### Added
