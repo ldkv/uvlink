@@ -64,16 +64,26 @@ def main(
 @app.command()
 def link(
     ctx: typer.Context,
+    venv_type: str = typer.Argument(
+        ".venv",
+        metavar="[VENV_TYPE]",
+        help="Optional directory name for the project symlink (defaults to .venv).",
+    ),
     dry_run: bool | None = typer.Option(
         False, "--dry-run", help="Show what would be executed without actually run it."
     ),
 ) -> None:
     """Create (or update) the symlink in project pointing to the cached venv."""
-    proj = ctx.obj["proj"]
+    # Get project_dir from ctx and update venv_type from CLI argument
+    base_proj: Project = ctx.obj["proj"]
+    proj = Project(project_dir=base_proj.project_dir, venv_type=venv_type)
+
+    # Set dry_run flag
     dry_run = dry_run or ctx.obj["dry_run"]
+
+    symlink = proj.project_dir / f"{proj.venv_type}"
+    venv = proj.project_cache_dir / f"{proj.venv_type}"
     if dry_run:
-        symlink = proj.project_dir / f"{proj.venv_type}"
-        venv = proj.project_cache_dir / f"{proj.venv_type}"
         typer.echo(f"ln -s {venv} {symlink}")
         typer.Exit()
 
@@ -81,8 +91,6 @@ def link(
         if not proj.project_dir.is_dir():
             raise NotADirectoryError(f"{proj.project_dir} is not a directory")
         else:
-            symlink = proj.project_dir / f"{proj.venv_type}"
-            venv = proj.project_cache_dir / f"{proj.venv_type}"
             if venv.exists() or venv.is_symlink():
                 if typer.confirm(f"'{venv}' already exist, remove?", default=True):
                     typer.echo("Removing...")

@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import re
 import shutil
 from dataclasses import dataclass
 from datetime import datetime
@@ -38,6 +39,9 @@ def get_uvlink_dir(*subpaths: str | Path) -> Path:
     return root
 
 
+FILENAME_PATTERN = re.compile(r"^[A-Za-z0-9._-]+$")
+
+
 class Project:
     """Encapsulate derived paths for a uvlink-managed project.
 
@@ -63,20 +67,16 @@ class Project:
         Args:
             project_dir: Path to the project root; defaults to the current
                 working directory.
-            venv_type: Virtual environment strategy. Only ``".venv"`` is
-                supported at the moment.
+            venv_type: Directory name for the symlink that
+                lives inside the project (defaults to ``".venv"``).
 
         Raises:
             NotImplementedError: If an unsupported ``venv_type`` is supplied.
         """
-
         self.project_dir = Path(project_dir or Path.cwd()).expanduser().resolve()
         self.project_hash = self.hash_path(self.project_dir)
         self.project_name = self.project_dir.name
-        if venv_type in {".venv"}:
-            self.venv_type = venv_type
-        else:
-            raise NotImplementedError(f"venv_type = {venv_type} not supported (yet)")
+        self.venv_type = self._sanitize_venv_type(venv_type)
         self.project_cache_dir = (
             get_uvlink_dir("cache")
             / f"{self.project_name}-{self.project_hash}-{self.venv_type}"
@@ -139,6 +139,25 @@ class Project:
         metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
         return metadata_path
 
+    @staticmethod
+    def _sanitize_venv_type(raw_value: str | None) -> str:
+        """Validate the venv directory name is a single, portable filename."""
+
+        candidate = (raw_value or ".venv").strip()
+        if candidate in {"", ".", ".."}:
+            raise ValueError("venv_type must not be empty or relative")
+        if os.sep in candidate or (os.altsep and os.altsep in candidate):
+            raise ValueError("venv_type cannot include path separators")
+        if not FILENAME_PATTERN.match(candidate):
+            raise ValueError(
+                "venv_type may only contain letters, numbers, '.', '_', or '-'"
+            )
+        if candidate.endswith(".") or candidate.endswith(" "):
+            raise ValueError("venv_type cannot end with a dot or space")
+        if len(candidate.encode("utf-8")) > 255:
+            raise ValueError("venv_type is too long for common filesystems")
+        return candidate
+
 
 @dataclass(slots=True)
 class ProjectLinkInfo:
@@ -173,7 +192,8 @@ class Projects(list[Project]):
 
         Returns:
             list[ProjectLinkInfo]: One entry per cached project, detailing
-                whether its ``.venv`` symlink currently targets uvlink's cache.
+                whether its configured symlink currently targets
+                uvlink's cache.
         """
 
         linked: list[ProjectLinkInfo] = []

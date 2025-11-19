@@ -50,6 +50,12 @@ This creates a `.venv` symlink in your project pointing to a cached environment 
 
 After linking, you can do for example `uv sync` to install dependencies into `.venv`, which is now a symlink to the cached environment.
 
+Need a different directory name (for example to match a tooling convention)? Pass it as an optional argument `[VENV_TYPE]`, which defaults to `.venv`:
+
+```bash
+$ uvlink link [VENV_TYPE]
+```
+
 **List all linked projects:**
 
 ```bash
@@ -67,8 +73,8 @@ $ uvlink gc
 Removes cached environments for projects that no longer have working symlinks, freeing up disk space.
 
 
-## Demo
-![](docs/fig/uvlink-demo@2x.gif)
+<!-- ## Demo
+![](docs/fig/uvlink-demo@2x.gif) -->
 
 ## Advanced Usage
 
@@ -81,6 +87,14 @@ $ uvlink --project-dir /path/to/project link
 ```
 
 Works from any location without needing to `cd` into the project directory first.
+
+**Swap the .venv folder name:**
+
+```bash
+$ uvlink --project-dir /path/to/project link [VENV_TYPE]
+```
+
+Custom `[VENV_TYPE]` are helpful when sharing a cache across tooling expectations (e.g., `.venv-prod`, `.venv-dev`).
 
 
 

@@ -2,6 +2,14 @@
 
 Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.0
+
+### Added
+- `uvlink link [VENV_TYPE]` accepts an optional folder name so you can create links such as `.venv-prod` or `.pdm-venv` without extra commands.
+
+### Changed
+- `venv_type` input is now validated as a portable filename (no path separators, limited to alphanumerics plus `._-`, no trailing dots/spaces), preventing cache corruption from illegal names.
+
 ## 0.6.0
 
 ### Changed
