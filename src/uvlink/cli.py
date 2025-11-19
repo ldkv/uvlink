@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import typer
+from rich import box
 from rich.console import Console
 from rich.table import Table
 
@@ -108,7 +109,7 @@ def list_venvs(ctx: typer.Context) -> None:
 
     ps = Projects()
     linked = ps.get_list()
-    table = Table()
+    table = Table(box=box.MINIMAL)
 
     table.add_column("Cache-ID", no_wrap=True)
     table.add_column("Project Path")
