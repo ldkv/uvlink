@@ -38,6 +38,11 @@ dev = [
 [tool.ruff]
 lint.select = [ "B", "E", "F", "I", "UP" ]
 
+[tool.pyrefly]
+python-interpreter-path = ".venv/bin/python"
+project-includes = [ "src", "tests" ]
+search-path = [ "src" ]
+
 [tool.pyright]
 typeCheckingMode = "strict"
 include = [ "src" ]
