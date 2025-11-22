@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ page.title }} - {{ config.site_name }}" />
+  <meta property="og:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}" />
+  <meta property="og:url" content="{{ page.canonical_url }}" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@c0rychu" />
+  <meta name="twitter:creator" content="@c0rychu" />
+  <meta name="twitter:title" content="{{ page.title }} - {{ config.site_name }}" />
+  <meta name="twitter:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}" />
+  {{ super() }}
+{% endblock %}

@@ -4,10 +4,10 @@ icon: lucide/rocket
 
 # uvlink
 
+**uvlink** is a CLI tool that moves `.venv` folders into a local cache and creates a symlink in your project.
+
 [![PyPI - Version](https://img.shields.io/pypi/v/uvlink)](https://pypi.org/project/uvlink/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/uvlink)](https://pypi.org/project/uvlink/)
-
-**uvlink** is a CLI tool that moves `.venv` folders into a local cache and creates a symlink in your project.
 
 ## Why uvlink?
 
