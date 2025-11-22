@@ -54,6 +54,16 @@ Swap the `.venv` folder name for something else:
 uvlink link .my-custom-venv
 ```
 
+### Custom Cache Location
+
+Overrides the default cache directory (`~/.local/share/uvlink/cache`). This applies to all commands (`link`, `ls`, `gc`).
+
+```bash
+uvlink --cache-root /path/to/cache link
+uvlink --cache-root /path/to/cache ls
+uvlink --cache-root /path/to/cache gc
+```
+
 ## How it Works
 
 `uvlink` stores environments under:

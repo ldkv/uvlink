@@ -6,6 +6,11 @@ icon: lucide/history
 
 Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.1
+
+### Added
+- Global `--cache-root` option to the main `uvlink` command, enabling custom cache locations for all subcommands.
+
 ## 0.7.0
 
 ### Added

@@ -97,6 +97,16 @@ $ uvlink --project-dir /path/to/project link [VENV_TYPE]
 
 Custom `[VENV_TYPE]` are helpful when sharing a cache across tooling expectations (e.g., `.venv-prod`, `.venv-dev`).
 
+**Custom Cache Location:**
+
+```bash
+$ uvlink --cache-root /path/to/cache link
+$ uvlink --cache-root /path/to/cache ls
+$ uvlink --cache-root /path/to/cache gc
+```
+
+Overrides the default cache directory (`~/.local/share/uvlink/cache`). This applies to all commands (`link`, `ls`, `gc`).
+
 
 
 ## Notes
