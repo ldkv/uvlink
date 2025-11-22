@@ -4,6 +4,7 @@
 
 `uvlink` is a CLI tool that moves `.venv` folders into a local cache and creates a symlink in your project, so cloud services like Dropbox or iCloud only sync your actual code—not hundreds of megabytes of dependencies.
 
+- [Documentation](https://c0rychu.github.io/uvlink/)
 - [Changelog](docs/CHANGELOG.md)
 
 > [!CAUTION]
