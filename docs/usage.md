@@ -4,25 +4,6 @@ icon: lucide/terminal
 
 # Usage
 
-## Quick Start
-
-Navigate to any Python project and run:
-
-```bash
-cd /path/to/your/project
-uvlink link
-```
-
-This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/...`.
-
-After linking, you can use standard commands:
-
-```bash
-uv sync
-```
-
-This installs dependencies into the cached environment via the symlink.
-
 ## Commands
 
 ### `link`

@@ -21,3 +21,22 @@ Cloud services like Dropbox, iCloud, or Google Drive often struggle with the tho
 
 !!! warning "Important Note on Caching"
     Since `v0.6.0`, the cache directory includes the venv type in its folder name and stores the environment under a matching subdirectory. If you have caches from older versions, delete them and rerun `uvlink link` to migrate.
+
+## Quick Start
+
+Navigate to any Python project and run:
+
+```bash
+cd /path/to/your/project
+uvlink link
+```
+
+This creates a `.venv` symlink in your project pointing to a cached environment under `~/.local/share/uvlink/cache/...`.
+
+After linking, you can use standard commands:
+
+```bash
+uv sync
+```
+
+This installs dependencies into the cached environment via the symlink.
