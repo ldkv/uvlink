@@ -6,6 +6,15 @@ icon: lucide/history
 
 Note: Trying to follow the essentials of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## 0.7.2
+
+### Added
+- `--dry-run` option to the `gc` command, allowing you to preview which caches would be removed without actually deleting them.
+
+### Changed
+- Improved dry-run output for `link` command to clearly indicate it's a preview with "Would execute:" prefix.
+- Enhanced documentation across README, installation, and usage pages with clearer explanations, more examples, and better coverage of `XDG_DATA_HOME` support.
+
 ## 0.7.1
 
 ### Added
