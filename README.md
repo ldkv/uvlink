@@ -153,3 +153,8 @@ Each project receives a stable hash based on its absolute path, so repeated runs
 ## Contributing
 
 Issues and pull requests are welcome. Please keep docstrings and comments in the Google style already used throughout the codebase and run the included linters/formatters before submitting. A pre-commit configuration is provided that runs Ruff and Black; install it with `pre-commit install` to match formatting.
+
+Also, feel free to make comments/discussion at
+
+- [Reddit Post](https://www.reddit.com/r/Python/comments/1p662t0/uvlink_a_cli_to_keep_venv_in_a_centralized_cache/)
+- [Hacker News Post](https://news.ycombinator.com/item?id=46042792)

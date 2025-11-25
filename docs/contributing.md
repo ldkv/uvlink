@@ -4,7 +4,14 @@ icon: lucide/git-pull-request
 
 # Contributing
 
-We welcome contributions! Please follow these guidelines to ensure a smooth process.
+## Discussion
+Feel free to make comments/discussion at
+
+- [Reddit Post](https://www.reddit.com/r/Python/comments/1p662t0/uvlink_a_cli_to_keep_venv_in_a_centralized_cache/)
+- [Hacker News Post](https://news.ycombinator.com/item?id=46042792)
+
+## Contributing
+We welcome contributions! Please follow these guidelines to ensure a smooth process:
 
 ## Project Structure
 
