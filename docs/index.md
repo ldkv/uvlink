@@ -8,6 +8,8 @@ icon: lucide/rocket
 
 [![PyPI - Version](https://img.shields.io/pypi/v/uvlink)](https://pypi.org/project/uvlink/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/uvlink)](https://pypi.org/project/uvlink/)
+[![GitHub Actions - CI Tests](https://img.shields.io/github/actions/workflow/status/c0rychu/uvlink/ci-tests.yml?branch=main&label=CI%20Tests)](https://github.com/c0rychu/uvlink/actions/workflows/ci-tests.yml)
+[![GitHub - License](https://img.shields.io/github/license/c0rychu/uvlink)](https://github.com/c0rychu/uvlink/blob/main/LICENSE)
 
 ## Why uvlink?
 
