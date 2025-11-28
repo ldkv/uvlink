@@ -2,9 +2,9 @@ name: CI Checks
 
 on:
   push:
-    branches: [main, support-windows]
+    branches: [main]
   pull_request:
-    branches: [main, support-windows]
+    branches: [main]
 
 jobs:
   checks:
